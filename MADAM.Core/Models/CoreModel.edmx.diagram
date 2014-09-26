@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="45e5b2897a014ccd8faabe1a02d42296" Name="Diagram1" ZoomLevel="111">
+        <EntityTypeShape EntityType="MADAM.Core.Models.Field" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldType" Width="1.5" PointX="0.875" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_Date" Width="1.625" PointX="9.875" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_Int" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_Money" Width="1.75" PointX="11.625" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.Thing" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.ThingType" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_Fields_FieldTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_Fields_ThingTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_Date_Fields" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_Int_Fields" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_Money_Fields" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_Date_Things" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_Int_Things" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_Money_Things" ManuallyRouted="false" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_Things_ThingTypes" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_FK" Width="1.5" PointX="6.625" PointY="9.625" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_StringLong" Width="2" PointX="15.625" PointY="9.625" />
+        <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_StringShort" Width="2" PointX="13.5" PointY="9.625" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_FK_Fields" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_StringLong_Fields" ></AssociationConnector>
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_StringShort_Fields" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_FK_Things" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_FK_Things1" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_StringLong_Things" />
+        <AssociationConnector Association="MADAM.Core.Models.FK_FieldValues_StringShort_Things" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

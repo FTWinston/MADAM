@@ -1,0 +1,904 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MADAM.Model.Core.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Fields">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ThingTypeID" Type="int" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="FieldTypeID" Type="int" Nullable="false" />
+          <Property Name="MinValues" Type="int" Nullable="false" />
+          <Property Name="MaxValues" Type="int" />
+        </EntityType>
+        <EntityType Name="FieldTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="ValueTable" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Date">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThingID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Value" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_FK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThingID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Value" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Int">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThingID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_Money">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThingID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Value" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_StringLong">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThingID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FieldValues_StringShort">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThingID" Type="bigint" Nullable="false" />
+          <Property Name="FieldID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Things">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ThingTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Module" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Fields_FieldTypes">
+          <End Role="FieldTypes" Type="Self.FieldTypes" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="FieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_ThingTypes">
+          <End Role="ThingTypes" Type="Self.ThingTypes" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Fields" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThingTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="ThingTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Date_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Date">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Date_Things">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Date">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FK_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues_FK" Type="Self.FieldValues_FK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FK">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FK_Things">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_FK" Type="Self.FieldValues_FK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FK">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FK_Things1">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_FK" Type="Self.FieldValues_FK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FK">
+              <PropertyRef Name="Value" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Int_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Int">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Int_Things">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Int">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Money_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues_Money" Type="Self.FieldValues_Money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Money">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Money_Things">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_Money" Type="Self.FieldValues_Money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Money">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringLong_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues_StringLong" Type="Self.FieldValues_StringLong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringLong">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringLong_Things">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_StringLong" Type="Self.FieldValues_StringLong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringLong">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringShort_Fields">
+          <End Role="Fields" Type="Self.Fields" Multiplicity="1" />
+          <End Role="FieldValues_StringShort" Type="Self.FieldValues_StringShort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringShort">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringShort_Things">
+          <End Role="Things" Type="Self.Things" Multiplicity="1" />
+          <End Role="FieldValues_StringShort" Type="Self.FieldValues_StringShort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringShort">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Things_ThingTypes">
+          <End Role="ThingTypes" Type="Self.ThingTypes" Multiplicity="1" />
+          <End Role="Things" Type="Self.Things" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThingTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Things">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MADAMModelCoreStoreContainer">
+          <EntitySet Name="Fields" EntityType="Self.Fields" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldTypes" EntityType="Self.FieldTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Date" EntityType="Self.FieldValues_Date" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValues_FK" EntityType="Self.FieldValues_FK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Int" EntityType="Self.FieldValues_Int" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValues_Money" EntityType="Self.FieldValues_Money" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValues_StringLong" EntityType="Self.FieldValues_StringLong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FieldValues_StringShort" EntityType="Self.FieldValues_StringShort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Things" EntityType="Self.Things" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ThingTypes" EntityType="Self.ThingTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Fields_FieldTypes" Association="Self.FK_Fields_FieldTypes">
+            <End Role="FieldTypes" EntitySet="FieldTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_ThingTypes" Association="Self.FK_Fields_ThingTypes">
+            <End Role="ThingTypes" EntitySet="ThingTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Date_Fields" Association="Self.FK_FieldValues_Date_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Date_Things" Association="Self.FK_FieldValues_Date_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FK_Fields" Association="Self.FK_FieldValues_FK_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_FK" EntitySet="FieldValues_FK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FK_Things" Association="Self.FK_FieldValues_FK_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_FK" EntitySet="FieldValues_FK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FK_Things1" Association="Self.FK_FieldValues_FK_Things1">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_FK" EntitySet="FieldValues_FK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Int_Fields" Association="Self.FK_FieldValues_Int_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Int_Things" Association="Self.FK_FieldValues_Int_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Money_Fields" Association="Self.FK_FieldValues_Money_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_Money" EntitySet="FieldValues_Money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Money_Things" Association="Self.FK_FieldValues_Money_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_Money" EntitySet="FieldValues_Money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringLong_Fields" Association="Self.FK_FieldValues_StringLong_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_StringLong" EntitySet="FieldValues_StringLong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringLong_Things" Association="Self.FK_FieldValues_StringLong_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_StringLong" EntitySet="FieldValues_StringLong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringShort_Fields" Association="Self.FK_FieldValues_StringShort_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_StringShort" EntitySet="FieldValues_StringShort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringShort_Things" Association="Self.FK_FieldValues_StringShort_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_StringShort" EntitySet="FieldValues_StringShort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Things_ThingTypes" Association="Self.FK_Things_ThingTypes">
+            <End Role="ThingTypes" EntitySet="ThingTypes" />
+            <End Role="Things" EntitySet="Things" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MADAM.Core.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Field">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThingTypeID" Type="Int32" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="FieldTypeID" Type="Int32" Nullable="false" />
+          <Property Name="MinValues" Type="Int32" Nullable="false" />
+          <Property Name="MaxValues" Type="Int32" />
+          <NavigationProperty Name="FieldType" Relationship="Self.FK_Fields_FieldTypes" FromRole="Fields" ToRole="FieldTypes" />
+          <NavigationProperty Name="ThingType" Relationship="Self.FK_Fields_ThingTypes" FromRole="Fields" ToRole="ThingTypes" />
+          <NavigationProperty Name="FieldValues_Date" Relationship="Self.FK_FieldValues_Date_Fields" FromRole="Fields" ToRole="FieldValues_Date" />
+          <NavigationProperty Name="FieldValues_Int" Relationship="Self.FK_FieldValues_Int_Fields" FromRole="Fields" ToRole="FieldValues_Int" />
+          <NavigationProperty Name="FieldValues_Money" Relationship="Self.FK_FieldValues_Money_Fields" FromRole="Fields" ToRole="FieldValues_Money" />
+          <NavigationProperty Name="FieldValues_FK" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Fields" FromRole="Field" ToRole="FieldValues_FK" />
+          <NavigationProperty Name="FieldValues_StringLong" Relationship="MADAM.Core.Models.FK_FieldValues_StringLong_Fields" FromRole="Field" ToRole="FieldValues_StringLong" />
+          <NavigationProperty Name="FieldValues_StringShort" Relationship="MADAM.Core.Models.FK_FieldValues_StringShort_Fields" FromRole="Field" ToRole="FieldValues_StringShort" />
+        </EntityType>
+        <EntityType Name="FieldType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ValueTable" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Fields" Relationship="Self.FK_Fields_FieldTypes" FromRole="FieldTypes" ToRole="Fields" />
+        </EntityType>
+        <EntityType Name="FieldValues_Date">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThingID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Field" Relationship="Self.FK_FieldValues_Date_Fields" FromRole="FieldValues_Date" ToRole="Fields" />
+          <NavigationProperty Name="Thing" Relationship="Self.FK_FieldValues_Date_Things" FromRole="FieldValues_Date" ToRole="Things" />
+        </EntityType>
+        <EntityType Name="FieldValues_Int">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThingID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Field" Relationship="Self.FK_FieldValues_Int_Fields" FromRole="FieldValues_Int" ToRole="Fields" />
+          <NavigationProperty Name="Thing" Relationship="Self.FK_FieldValues_Int_Things" FromRole="FieldValues_Int" ToRole="Things" />
+        </EntityType>
+        <EntityType Name="FieldValues_Money">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThingID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Field" Relationship="Self.FK_FieldValues_Money_Fields" FromRole="FieldValues_Money" ToRole="Fields" />
+          <NavigationProperty Name="Thing" Relationship="Self.FK_FieldValues_Money_Things" FromRole="FieldValues_Money" ToRole="Things" />
+        </EntityType>
+        <EntityType Name="Thing">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FieldValues_Date" Relationship="Self.FK_FieldValues_Date_Things" FromRole="Things" ToRole="FieldValues_Date" />
+          <NavigationProperty Name="FieldValues_Int" Relationship="Self.FK_FieldValues_Int_Things" FromRole="Things" ToRole="FieldValues_Int" />
+          <NavigationProperty Name="FieldValues_Money" Relationship="Self.FK_FieldValues_Money_Things" FromRole="Things" ToRole="FieldValues_Money" />
+          <NavigationProperty Name="ThingType" Relationship="Self.FK_Things_ThingTypes" FromRole="Things" ToRole="ThingTypes" />
+          <NavigationProperty Name="FieldValues_FK" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things" FromRole="Thing" ToRole="FieldValues_FK" />
+          <NavigationProperty Name="FieldValues_FK1" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things1" FromRole="Thing" ToRole="FieldValues_FK" />
+          <NavigationProperty Name="FieldValues_StringLong" Relationship="MADAM.Core.Models.FK_FieldValues_StringLong_Things" FromRole="Thing" ToRole="FieldValues_StringLong" />
+          <NavigationProperty Name="FieldValues_StringShort" Relationship="MADAM.Core.Models.FK_FieldValues_StringShort_Things" FromRole="Thing" ToRole="FieldValues_StringShort" />
+        </EntityType>
+        <EntityType Name="ThingType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Module" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Fields" Relationship="Self.FK_Fields_ThingTypes" FromRole="ThingTypes" ToRole="Fields" />
+          <NavigationProperty Name="Things" Relationship="Self.FK_Things_ThingTypes" FromRole="ThingTypes" ToRole="Things" />
+        </EntityType>
+        <Association Name="FK_Fields_FieldTypes">
+          <End Role="FieldTypes" Type="Self.FieldType" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FieldTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="FieldTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fields_ThingTypes">
+          <End Role="ThingTypes" Type="Self.ThingType" Multiplicity="1" />
+          <End Role="Fields" Type="Self.Field" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThingTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Fields">
+              <PropertyRef Name="ThingTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Date_Fields">
+          <End Role="Fields" Type="Self.Field" Multiplicity="1" />
+          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Date">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Int_Fields">
+          <End Role="Fields" Type="Self.Field" Multiplicity="1" />
+          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Int">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Money_Fields">
+          <End Role="Fields" Type="Self.Field" Multiplicity="1" />
+          <End Role="FieldValues_Money" Type="Self.FieldValues_Money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fields">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Money">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Date_Things">
+          <End Role="Things" Type="Self.Thing" Multiplicity="1" />
+          <End Role="FieldValues_Date" Type="Self.FieldValues_Date" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Date">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Int_Things">
+          <End Role="Things" Type="Self.Thing" Multiplicity="1" />
+          <End Role="FieldValues_Int" Type="Self.FieldValues_Int" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Int">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_Money_Things">
+          <End Role="Things" Type="Self.Thing" Multiplicity="1" />
+          <End Role="FieldValues_Money" Type="Self.FieldValues_Money" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Things">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_Money">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Things_ThingTypes">
+          <End Role="ThingTypes" Type="Self.ThingType" Multiplicity="1" />
+          <End Role="Things" Type="Self.Thing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ThingTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Things">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MADAM_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Fields" EntityType="Self.Field" />
+          <EntitySet Name="FieldTypes" EntityType="Self.FieldType" />
+          <EntitySet Name="FieldValues_Date" EntityType="Self.FieldValues_Date" />
+          <EntitySet Name="FieldValues_Int" EntityType="Self.FieldValues_Int" />
+          <EntitySet Name="FieldValues_Money" EntityType="Self.FieldValues_Money" />
+          <EntitySet Name="Things" EntityType="Self.Thing" />
+          <EntitySet Name="ThingTypes" EntityType="Self.ThingType" />
+          <AssociationSet Name="FK_Fields_FieldTypes" Association="Self.FK_Fields_FieldTypes">
+            <End Role="FieldTypes" EntitySet="FieldTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fields_ThingTypes" Association="Self.FK_Fields_ThingTypes">
+            <End Role="ThingTypes" EntitySet="ThingTypes" />
+            <End Role="Fields" EntitySet="Fields" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Date_Fields" Association="Self.FK_FieldValues_Date_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Int_Fields" Association="Self.FK_FieldValues_Int_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Money_Fields" Association="Self.FK_FieldValues_Money_Fields">
+            <End Role="Fields" EntitySet="Fields" />
+            <End Role="FieldValues_Money" EntitySet="FieldValues_Money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Date_Things" Association="Self.FK_FieldValues_Date_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_Date" EntitySet="FieldValues_Date" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Int_Things" Association="Self.FK_FieldValues_Int_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_Int" EntitySet="FieldValues_Int" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_Money_Things" Association="Self.FK_FieldValues_Money_Things">
+            <End Role="Things" EntitySet="Things" />
+            <End Role="FieldValues_Money" EntitySet="FieldValues_Money" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Things_ThingTypes" Association="Self.FK_Things_ThingTypes">
+            <End Role="ThingTypes" EntitySet="ThingTypes" />
+            <End Role="Things" EntitySet="Things" />
+          </AssociationSet>
+          <EntitySet Name="FieldValues_FK" EntityType="MADAM.Core.Models.FieldValues_FK" />
+          <EntitySet Name="FieldValues_StringLong" EntityType="MADAM.Core.Models.FieldValues_StringLong" />
+          <EntitySet Name="FieldValues_StringShort" EntityType="MADAM.Core.Models.FieldValues_StringShort" />
+          <AssociationSet Name="FK_FieldValues_FK_Fields" Association="MADAM.Core.Models.FK_FieldValues_FK_Fields">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="FieldValues_FK" EntitySet="FieldValues_FK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringLong_Fields" Association="MADAM.Core.Models.FK_FieldValues_StringLong_Fields">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="FieldValues_StringLong" EntitySet="FieldValues_StringLong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringShort_Fields" Association="MADAM.Core.Models.FK_FieldValues_StringShort_Fields">
+            <End Role="Field" EntitySet="Fields" />
+            <End Role="FieldValues_StringShort" EntitySet="FieldValues_StringShort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FK_Things" Association="MADAM.Core.Models.FK_FieldValues_FK_Things">
+            <End Role="Thing" EntitySet="Things" />
+            <End Role="FieldValues_FK" EntitySet="FieldValues_FK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_FK_Things1" Association="MADAM.Core.Models.FK_FieldValues_FK_Things1">
+            <End Role="Thing" EntitySet="Things" />
+            <End Role="FieldValues_FK" EntitySet="FieldValues_FK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringLong_Things" Association="MADAM.Core.Models.FK_FieldValues_StringLong_Things">
+            <End Role="Thing" EntitySet="Things" />
+            <End Role="FieldValues_StringLong" EntitySet="FieldValues_StringLong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FieldValues_StringShort_Things" Association="MADAM.Core.Models.FK_FieldValues_StringShort_Things">
+            <End Role="Thing" EntitySet="Things" />
+            <End Role="FieldValues_StringShort" EntitySet="FieldValues_StringShort" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="FieldValues_FK">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThingID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Field" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Fields" FromRole="FieldValues_FK" ToRole="Field" />
+          <NavigationProperty Name="Thing" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things" FromRole="FieldValues_FK" ToRole="Thing" />
+          <NavigationProperty Name="Thing1" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things1" FromRole="FieldValues_FK" ToRole="Thing" />
+        </EntityType>
+        <EntityType Name="FieldValues_StringLong">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThingID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Field" Relationship="MADAM.Core.Models.FK_FieldValues_StringLong_Fields" FromRole="FieldValues_StringLong" ToRole="Field" />
+          <NavigationProperty Name="Thing" Relationship="MADAM.Core.Models.FK_FieldValues_StringLong_Things" FromRole="FieldValues_StringLong" ToRole="Thing" />
+        </EntityType>
+        <EntityType Name="FieldValues_StringShort">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThingID" Type="Int64" Nullable="false" />
+          <Property Name="FieldID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Field" Relationship="MADAM.Core.Models.FK_FieldValues_StringShort_Fields" FromRole="FieldValues_StringShort" ToRole="Field" />
+          <NavigationProperty Name="Thing" Relationship="MADAM.Core.Models.FK_FieldValues_StringShort_Things" FromRole="FieldValues_StringShort" ToRole="Thing" />
+        </EntityType>
+        <Association Name="FK_FieldValues_FK_Fields">
+          <End Type="MADAM.Core.Models.Field" Role="Field" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_FK" Role="FieldValues_FK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FK">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringLong_Fields">
+          <End Type="MADAM.Core.Models.Field" Role="Field" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_StringLong" Role="FieldValues_StringLong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringLong">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringShort_Fields">
+          <End Type="MADAM.Core.Models.Field" Role="Field" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_StringShort" Role="FieldValues_StringShort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Field">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringShort">
+              <PropertyRef Name="FieldID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FK_Things">
+          <End Type="MADAM.Core.Models.Thing" Role="Thing" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_FK" Role="FieldValues_FK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thing">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FK">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_FK_Things1">
+          <End Type="MADAM.Core.Models.Thing" Role="Thing" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_FK" Role="FieldValues_FK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thing">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_FK">
+              <PropertyRef Name="Value" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringLong_Things">
+          <End Type="MADAM.Core.Models.Thing" Role="Thing" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_StringLong" Role="FieldValues_StringLong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thing">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringLong">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FieldValues_StringShort_Things">
+          <End Type="MADAM.Core.Models.Thing" Role="Thing" Multiplicity="1" />
+          <End Type="MADAM.Core.Models.FieldValues_StringShort" Role="FieldValues_StringShort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Thing">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="FieldValues_StringShort">
+              <PropertyRef Name="ThingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MADAMModelCoreStoreContainer" CdmEntityContainer="MADAM_Entities">
+          <EntitySetMapping Name="Fields">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.Field">
+              <MappingFragment StoreEntitySet="Fields">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ThingTypeID" ColumnName="ThingTypeID" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="FieldTypeID" ColumnName="FieldTypeID" />
+                <ScalarProperty Name="MinValues" ColumnName="MinValues" />
+                <ScalarProperty Name="MaxValues" ColumnName="MaxValues" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldTypes">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldType">
+              <MappingFragment StoreEntitySet="FieldTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ValueTable" ColumnName="ValueTable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Date">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldValues_Date">
+              <MappingFragment StoreEntitySet="FieldValues_Date">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ThingID" ColumnName="ThingID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Int">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldValues_Int">
+              <MappingFragment StoreEntitySet="FieldValues_Int">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ThingID" ColumnName="ThingID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_Money">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldValues_Money">
+              <MappingFragment StoreEntitySet="FieldValues_Money">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ThingID" ColumnName="ThingID" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Things">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.Thing">
+              <MappingFragment StoreEntitySet="Things">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ThingTypes">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.ThingType">
+              <MappingFragment StoreEntitySet="ThingTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Module" ColumnName="Module" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_FK">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldValues_FK">
+              <MappingFragment StoreEntitySet="FieldValues_FK">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ThingID" ColumnName="ThingID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_StringLong">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldValues_StringLong">
+              <MappingFragment StoreEntitySet="FieldValues_StringLong">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ThingID" ColumnName="ThingID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FieldValues_StringShort">
+            <EntityTypeMapping TypeName="MADAM.Core.Models.FieldValues_StringShort">
+              <MappingFragment StoreEntitySet="FieldValues_StringShort">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="FieldID" ColumnName="FieldID" />
+                <ScalarProperty Name="ThingID" ColumnName="ThingID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
