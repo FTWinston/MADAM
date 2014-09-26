@@ -13,7 +13,7 @@ namespace EntityGenerator
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            var targetDir = new DirectoryInfo(new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\TestModule\\Entities");
+            var targetDir = new DirectoryInfo(new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "\\TestModule\\Models\\Entities");
             if (!targetDir.Exists)
             {
                 MessageBox.Show(targetDir.FullName, "Dir not found");

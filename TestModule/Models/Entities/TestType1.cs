@@ -23,17 +23,17 @@ namespace TestModule.Models.Entities
         /// <summary>
         /// A Short String field that saves to the FieldValues_StringShort table with Field ID 3
         /// </summary>
-        public string Email { get; set; }
+        public List<string> Emails { get; set; }
 
         /// <summary>
         /// A Short String field that saves to the FieldValues_StringShort table with Field ID 4
         /// </summary>
-        public string Telephone { get; set; }
+        public List<string> Telephones { get; set; }
 
         /// <summary>
         /// A Date field that saves to the FieldValues_Date table with Field ID 5
         /// </summary>
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
 
     }

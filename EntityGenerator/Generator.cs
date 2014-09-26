@@ -24,7 +24,7 @@ namespace EntityGenerator
             }
         }
 
-        private static string DetermineObjectName(string dbName)
+        private static string DetermineObjectName(string dbName, bool pluralize = false)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -43,7 +43,15 @@ namespace EntityGenerator
                 else
                     justSkipped = true;
 
-            return sb.ToString();
+            return pluralize ? Pluralize(sb.ToString()) : sb.ToString();
+        }
+
+        private static string Pluralize(string singular)
+        {
+            // this could be made much more complicated, I'm sure
+            if (singular.EndsWith("y", StringComparison.InvariantCultureIgnoreCase))
+                return singular + "ies";
+            return singular + "s";
         }
 
         private static string GenerateEntityClass(ThingType type, string entityName, string moduleName)
@@ -69,8 +77,40 @@ namespace EntityGenerator
             output.AppendLine();
             output.AppendLine("        /// </summary>");
 
-            output.AppendFormat("        public {1} {0} {{ get; set; }}", DetermineObjectName(field.Name), type);
+
+            if (!field.MaxValues.HasValue || (field.MaxValues > 1 && field.MaxValues != field.MinValues))
+                output.AppendFormat("        public List<{1}> {0} {{ get; set; }}", DetermineObjectName(field.Name, true), type);
+            else if (field.MaxValues.Value <= 1)
+                output.AppendFormat("        public {1}{2} {0} {{ get; set; }}", DetermineObjectName(field.Name), type, field.MinValues <= 0 && MustMakeNullable(type) ? "?" : string.Empty);
+            else
+                output.AppendFormat("        public {1}[] {0} {{ get; set; }}", DetermineObjectName(field.Name, true), type);
+
             output.AppendLine(); output.AppendLine();
+        }
+
+        private static bool MustMakeNullable(string type)
+        {
+            switch ( type)
+            {
+                case "bool":
+                case "byte":
+                case "char":
+                case "decimal":
+                case "double":
+                case "float":
+                case "int":
+                case "long":
+                case "sbyte":
+                case "short":
+                case "struct":
+                case "uint":
+                case "ulong":
+                case "ushort":
+                case "DateTime":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         private static string DetermineCodeTypeForDatabaseType(FieldType type)
