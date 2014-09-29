@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace {ModuleName}.Models.Entities
 {
     // This file is auto-generated, DO NOT EDIT or your changes will be lost!
-    public class {ClassName} : EntityBase
+    public sealed class {ClassName} : EntityBase
     {
 {Fields}
     }

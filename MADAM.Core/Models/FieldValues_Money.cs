@@ -12,7 +12,7 @@ namespace MADAM.Core.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_Money
+    public partial class FieldValues_Money : IFieldValue
     {
         public long ID { get; set; }
         public long ThingID { get; set; }

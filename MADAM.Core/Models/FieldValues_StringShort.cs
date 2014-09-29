@@ -12,7 +12,7 @@ namespace MADAM.Core.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_StringShort
+    public partial class FieldValues_StringShort : IFieldValue
     {
         public long ID { get; set; }
         public long ThingID { get; set; }

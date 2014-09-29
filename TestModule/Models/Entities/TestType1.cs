@@ -35,6 +35,11 @@ namespace TestModule.Models.Entities
         /// </summary>
         public DateTime? DateOfBirth { get; set; }
 
+        /// <summary>
+        /// A Integer field that saves to the FieldValues_Int table with Field ID 6
+        /// </summary>
+        public int Age { get; set; }
+
 
     }
 }

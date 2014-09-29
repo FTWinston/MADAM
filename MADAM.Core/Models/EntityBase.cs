@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace MADAM.Core.Models
 {
-    public class EntityBase
+    public abstract class EntityBase
     {
+        internal Thing Thing { get; private set; }
+        public ThingType ThingType { get { return Thing.ThingType; } }
+        public long ID { get { return Thing.ID; } }
 
     }
 }

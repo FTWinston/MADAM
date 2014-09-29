@@ -12,7 +12,7 @@ namespace MADAM.Core.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class FieldValues_FK
+    public partial class FieldValues_FK : IFieldValue
     {
         public long ID { get; set; }
         public long ThingID { get; set; }
@@ -22,6 +22,6 @@ namespace MADAM.Core.Models
     
         public virtual Field Field { get; set; }
         public virtual Thing Thing { get; set; }
-        public virtual Thing Thing1 { get; set; }
+        public virtual Thing ForeignThing { get; set; }
     }
 }

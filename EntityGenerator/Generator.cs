@@ -1,5 +1,7 @@
 ﻿using MADAM.Core.Models;
+using Microsoft.CSharp;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -115,23 +117,24 @@ namespace EntityGenerator
 
         private static string DetermineCodeTypeForDatabaseType(FieldType type)
         {
-            // this isn't a good way of doing this. Don't want to have to extend this method every time we add a type!
-            switch (type.ValueTable)
+            var assembly = Assembly.GetAssembly(typeof(FieldType));
+            var valueType = assembly.GetType("MADAM.Core.Models." + type.ValueTable);
+
+            if (valueType == null)
+                throw new Exception(type.ValueTable + " table is not included in MADAM.Core.Models.CoreModel data model! Please include it to allow generation.");
+
+            var field = valueType.GetProperty("Value");
+            if (field == null)
+                throw new Exception(valueType.Name + " does not have a 'Value' column! Generation cannot continue.");
+
+            string friendlyName;
+            using (var provider = new CSharpCodeProvider())
             {
-                case "FieldValues_FK":
-                    return "long";
-                case "FieldValues_Int":
-                    return "int";
-                case "FieldValues_Date":
-                    return "DateTime";
-                case "FieldValues_Money":
-                    return "decimal";
-                case "FieldValues_StringShort":
-                case "FieldValues_StringLong":
-                    return "string";
-                default:
-                    throw new NotImplementedException("Can't generate fields that save to " + type.ValueTable);
+                var typeRef = new CodeTypeReference(field.PropertyType);
+                friendlyName = provider.GetTypeOutput(typeRef);
             }
+
+            return friendlyName.Length <= field.PropertyType.Name.Length ? friendlyName : field.PropertyType.Name;
         }
 
         private static string LoadEmbeddedResource(string resourceName)

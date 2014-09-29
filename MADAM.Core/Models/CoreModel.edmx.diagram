@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="45e5b2897a014ccd8faabe1a02d42296" Name="Diagram1" ZoomLevel="111">
+      <Diagram DiagramId="45e5b2897a014ccd8faabe1a02d42296" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="MADAM.Core.Models.Field" Width="1.5" PointX="3" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MADAM.Core.Models.FieldType" Width="1.5" PointX="0.875" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MADAM.Core.Models.FieldValues_Date" Width="1.625" PointX="9.875" PointY="9.625" IsExpanded="true" />

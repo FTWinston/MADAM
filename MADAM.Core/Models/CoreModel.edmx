@@ -657,7 +657,7 @@
           <Property Name="Value" Type="Int64" Nullable="false" />
           <NavigationProperty Name="Field" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Fields" FromRole="FieldValues_FK" ToRole="Field" />
           <NavigationProperty Name="Thing" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things" FromRole="FieldValues_FK" ToRole="Thing" />
-          <NavigationProperty Name="Thing1" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things1" FromRole="FieldValues_FK" ToRole="Thing" />
+          <NavigationProperty Name="ForeignThing" Relationship="MADAM.Core.Models.FK_FieldValues_FK_Things1" FromRole="FieldValues_FK" ToRole="Thing" />
         </EntityType>
         <EntityType Name="FieldValues_StringLong">
           <Key>

@@ -86,6 +86,7 @@
     <Compile Include="Models\FieldValues_StringShort.cs">
       <DependentUpon>CoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IFieldValue.cs" />
     <Compile Include="Models\Thing.cs">
       <DependentUpon>CoreModel.tt</DependentUpon>
     </Compile>
